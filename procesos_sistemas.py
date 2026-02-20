@@ -32,8 +32,11 @@ def pillarunProceso():
     infoprocesoStat = subprocess.run(f"ps aux | sed -n {procesoID}p | sed 's/  */ /g' | cut -d ' ' -f 8", capture_output=True, text=True, shell=True)
     infoprocesoStat = infoprocesoStat.stdout.strip()
 
+    infoprocesoFecha = subprocess.run(f"ps aux | sed -n {procesoID}p | sed 's/  */ /g' | cut -d ' ' -f 9", capture_output=True, text=True, shell=True)
+    infoprocesoFecha = infoprocesoFecha.stdout.strip()
 
-    infoproceso = f"Memory:,{infoprocesoMemory},\nTime:,{infoprocesoTime},\nCpu:,{infoprocesoCpu},\nStat:,{infoprocesoStat}"
+
+    infoproceso = f"Memory:{infoprocesoMemory}\nTime:{infoprocesoTime}\nCpu:{infoprocesoCpu}\nStat:{infoprocesoStat}\nDateExecution:{infoprocesoFecha}"
    
     print(infoproceso)
 

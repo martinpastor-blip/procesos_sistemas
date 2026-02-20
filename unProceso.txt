@@ -1,4 +1,5 @@
-Memory:,0.0,
-Time:,0:00,
-Cpu:,0.0,
-Stat:,I<
+Memory:0.0
+Time:0:00
+Cpu:0.0
+Stat:I<
+DateExecution:08:50
