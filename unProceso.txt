@@ -1,0 +1,4 @@
+Memory:,0.0,
+Time:,0:00,
+Cpu:,0.0,
+Stat:,I<

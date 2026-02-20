@@ -11,16 +11,20 @@ print ("2-Visualizar más info de un proceso en concreto")
 opcion = int(input())
 
 
-if opcion == 1:
+def pillartodosProcesos():
    procesos = subprocess.run(["ps", "-aux"], capture_output=True, text=True)
    procesos = procesos.stdout.strip()
    print (procesos)
 
+   with open('todosProcesos.txt', 'w') as archivo:
+    archivo.write(procesos)
 
-if opcion == 2:
-   print("¿Cúal es el ID del proceso del cual quieres ver más información?")
-   procesoID = int(input())
+if opcion == 1:
 
+    pillartodosProcesos()
+
+
+def pillarunProceso():
    infoprocesoMemory = subprocess.run(f"ps aux | sed -n {procesoID}p | sed 's/  */ /g' | cut -d ' ' -f 4", capture_output=True, text=True, shell=True)
    infoprocesoMemory = infoprocesoMemory.stdout.strip()
 
@@ -34,37 +38,51 @@ if opcion == 2:
    infoprocesoStat = infoprocesoStat.stdout.strip()
 
 
+   infoproceso = f"Memory:,{infoprocesoMemory},\nTime:,{infoprocesoTime},\nCpu:,{infoprocesoCpu},\nStat:,{infoprocesoStat}"
+   
+   print(infoproceso)
 
-   print ("Memory:",infoprocesoMemory,'\n'"Time:",infoprocesoTime,'\n'"Cpu:",infoprocesoCpu,'\n'"Stat:",infoprocesoStat)
-
-
-
-def get_process():
-   f = open("ps.txt", "w")
-   subprocess.call(["ps", "-aux"], stdout=f)
+   with open('unProceso.txt', 'w') as archivo:
+    archivo.write(infoproceso)
 
 
-def read_process_file():
-   with open("ps.txt") as file:
-       lines = file.readlines()
+
+if opcion == 2:
+
+   print("¿Cúal es el ID del proceso del cual quieres ver más información?")
+   procesoID = int(input())
+
+pillarunProceso() 
+
+#def get_process():
+#   f = open("ps.txt", "w")
+#   subprocess.call(["ps", "-aux"], stdout=f)
 
 
-       for l in lines:
-           print(l)
+# def read_process_file():
+#  with open("ps.txt") as file:
+#     lines = file.readlines()
 
 
-get_process()
-read_process_file()
+#      for l in lines:
+#         print(l)
 
 
-G = nx.DiGraph()
+#get_process()
+#read_process_file()
 
 
-G.add_node(1)
-G.add_node(2)
-G.add_edges_from([(1, 2)])
-nx.draw(G, with_labels=True, font_weight='bold')
+#G = nx.DiGraph()
 
 
-plt.show()
+#G.add_node(1)
+#G.add_node(2)
+#G.add_edges_from([(1, 2)])
+#nx.draw(G, with_labels=True, font_weight='bold')
+
+
+#plt.show()
+
+
+
 
