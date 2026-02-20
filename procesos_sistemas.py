@@ -19,41 +19,40 @@ def pillartodosProcesos():
    with open('todosProcesos.txt', 'w') as archivo:
     archivo.write(procesos)
 
+def pillarunProceso():
+    infoprocesoMemory = subprocess.run(f"ps aux | sed -n {procesoID}p | sed 's/  */ /g' | cut -d ' ' -f 4", capture_output=True, text=True, shell=True)
+    infoprocesoMemory = infoprocesoMemory.stdout.strip()
+
+    infoprocesoTime = subprocess.run(f"ps aux | sed -n {procesoID}p | sed 's/  */ /g' | cut -d ' ' -f 10", capture_output=True, text=True, shell=True)
+    infoprocesoTime = infoprocesoTime.stdout.strip()
+
+    infoprocesoCpu = subprocess.run(f"ps aux | sed -n {procesoID}p | sed 's/  */ /g' | cut -d ' ' -f 3", capture_output=True, text=True, shell=True)
+    infoprocesoCpu = infoprocesoCpu.stdout.strip()
+
+    infoprocesoStat = subprocess.run(f"ps aux | sed -n {procesoID}p | sed 's/  */ /g' | cut -d ' ' -f 8", capture_output=True, text=True, shell=True)
+    infoprocesoStat = infoprocesoStat.stdout.strip()
+
+
+    infoproceso = f"Memory:,{infoprocesoMemory},\nTime:,{infoprocesoTime},\nCpu:,{infoprocesoCpu},\nStat:,{infoprocesoStat}"
+   
+    print(infoproceso)
+
+    with open('unProceso.txt', 'w') as archivo:
+     archivo.write(infoproceso)
+
 if opcion == 1:
 
     pillartodosProcesos()
 
 
-def pillarunProceso():
-   infoprocesoMemory = subprocess.run(f"ps aux | sed -n {procesoID}p | sed 's/  */ /g' | cut -d ' ' -f 4", capture_output=True, text=True, shell=True)
-   infoprocesoMemory = infoprocesoMemory.stdout.strip()
-
-   infoprocesoTime = subprocess.run(f"ps aux | sed -n {procesoID}p | sed 's/  */ /g' | cut -d ' ' -f 10", capture_output=True, text=True, shell=True)
-   infoprocesoTime = infoprocesoTime.stdout.strip()
-
-   infoprocesoCpu = subprocess.run(f"ps aux | sed -n {procesoID}p | sed 's/  */ /g' | cut -d ' ' -f 3", capture_output=True, text=True, shell=True)
-   infoprocesoCpu = infoprocesoCpu.stdout.strip()
-
-   infoprocesoStat = subprocess.run(f"ps aux | sed -n {procesoID}p | sed 's/  */ /g' | cut -d ' ' -f 8", capture_output=True, text=True, shell=True)
-   infoprocesoStat = infoprocesoStat.stdout.strip()
-
-
-   infoproceso = f"Memory:,{infoprocesoMemory},\nTime:,{infoprocesoTime},\nCpu:,{infoprocesoCpu},\nStat:,{infoprocesoStat}"
-   
-   print(infoproceso)
-
-   with open('unProceso.txt', 'w') as archivo:
-    archivo.write(infoproceso)
-
-
 
 if opcion == 2:
 
-   print("¿Cúal es el ID del proceso del cual quieres ver más información?")
-   procesoID = int(input())
 
-pillarunProceso() 
+    print("¿Cúal es el ID del proceso del cual quieres ver más información?")
+    procesoID = int(input())
 
+    pillarunProceso() 
 #def get_process():
 #   f = open("ps.txt", "w")
 #   subprocess.call(["ps", "-aux"], stdout=f)
